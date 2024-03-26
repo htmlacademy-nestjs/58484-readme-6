@@ -1,0 +1,24 @@
+{
+  "name": "interaction",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/interaction/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "interaction:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "interaction:build:development"
+        },
+        "production": {
+          "buildTarget": "interaction:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
