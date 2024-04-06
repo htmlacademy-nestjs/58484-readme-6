@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  typoteka.user.mongo:
+    image: mongo:4.4
+    restart: always
+    container_name: typoteka.user.mongo
+
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DB}
+
+    ports:
+      - "27017:27017"
+
+    volumes:
+      - typoteka.mongo.user:/data/db
+
+volumes:
+  typoteka.mongo.user:

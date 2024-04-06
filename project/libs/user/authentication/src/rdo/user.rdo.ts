@@ -33,7 +33,7 @@ export class UserRdo {
 
   @ApiProperty({
     description: 'User role',
-    example: UserRole.USER,
+    example: UserRole.User,
     enum: UserRole,
   })
   @Expose()

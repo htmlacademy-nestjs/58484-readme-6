@@ -1,12 +1,15 @@
 import {
   ConflictException,
+  Inject,
   Injectable,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
 
 import { BlogUserRepository, BlogUserEntity } from '@project/blog-user';
 import { UserRole } from '@project/core';
+import { mongoConfig } from '@project/user-config';
 
 import { CreateUserDto } from '../dto/create-user.dto';
 import { AuthUserMessage } from './authentication.constant';
@@ -14,7 +17,12 @@ import { LoginUserDto } from '../dto/login-user.dto';
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private readonly blogUserRepository: BlogUserRepository) {}
+  constructor(
+    private readonly blogUserRepository: BlogUserRepository,
+
+    @Inject(mongoConfig.KEY)
+    private readonly databaseConfig: ConfigType<typeof mongoConfig>
+  ) {}
 
   public async register(dto: CreateUserDto): Promise<BlogUserEntity> {
     const { email, password, name, avatar = '' } = dto;
@@ -23,7 +31,7 @@ export class AuthenticationService {
       email,
       name,
       avatar,
-      role: UserRole.USER,
+      role: UserRole.User,
       passwordHash: '',
     };
 
